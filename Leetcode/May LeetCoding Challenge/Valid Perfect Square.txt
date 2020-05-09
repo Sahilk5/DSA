@@ -1,0 +1,35 @@
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Note: Do not use any built-in library function such as sqrt.
+
+Example 1:
+
+Input: 16
+Output: true
+Example 2:
+
+Input: 14
+Output: false
+
+Solution -
+
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        if num == 0 or num == 1:
+            return True    
+        l = 2
+        r = num/2
+        
+        while l <= r:
+            mid = int(l+(r-l)/2)
+            mid_sq = mid*mid
+            
+            if mid_sq == num:
+                return True
+            elif mid_sq < num:
+                 l = mid+1
+            else:
+                r = mid-1
+                
+        return False
+            
