@@ -1,0 +1,117 @@
+Given a linked list of size N and a key. The task is to insert the key in the middle of the linked list.
+
+Input:
+The first line of input contains the number of test cases T. For each test case, the first line contains the length of linked list N and the next line contains N elements to be inserted into the linked list and the last line contains the element to be inserted to the middle.
+
+Output:
+For each test case, there will be a single line of output containing the element of the modified linked list.
+
+User Task:
+The task is to complete the function insertInMiddle() which takes head reference and element to be inserted as the arguments. The printing is done automatically by the driver code.
+
+Constraints:
+1 <= T <= 100
+1 <= N <= 104
+
+Example:
+Input:
+2
+3
+1 2 4
+3
+4
+10 20 40 50
+30
+Output:
+1 2 3 4
+10 20 30 40 50
+
+Explanation:
+Testcase 1: The new element is inserted after the current middle element in the linked list.
+Testcase 2: The new element is inserted after the current middle element in the linked list and Hence, the output is 10 20 30 40 50.
+
+Solution -
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+// function to display the linked list
+void display(Node* head)
+{
+	while (head != NULL) {
+		cout << head->data << " ";
+		head = head->next;
+	}
+	cout<<endl;
+}
+
+void append(struct Node** head_ref, struct Node **tail_ref, int new_data)
+{
+    struct Node* new_node = new Node(new_data);
+    if (*head_ref == NULL)
+        *head_ref = new_node;
+    else
+        (*tail_ref)->next = new_node;
+    *tail_ref = new_node;
+}
+
+Node* insertInMiddle(Node* head, int x);
+
+int main()
+{
+    int n, k, T, l, x;
+    cin>>T;
+    while(T--)
+    {
+        struct Node *head = NULL,  *tail = NULL;
+        cin>>n;
+        for (int i=0; i<n; i++)
+        {
+            cin>>l;
+            append(&head, &tail, l);
+        }
+        cin>>x;
+        head = insertInMiddle(head, x);
+        display(head);
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+
+/*
+struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+*/
+
+// function should insert node at the middle
+// of the linked list
+Node* insertInMiddle(Node* head, int x)
+{
+	// Cpde here
+	Node* slow = head;
+	Node* fast = head;
+	while(fast->next != NULL && fast->next->next != NULL){
+	    fast = fast->next->next;
+	    slow = slow->next;
+	}
+	Node *temp = new Node(x);
+	temp->next = slow->next;
+	slow->next = temp;
+	return head;
+}

@@ -1,0 +1,136 @@
+Given a doubly-linked list, a position p, and an integer x. The task is to add a new node with value x at the position just after pth node in the doubly linked list.
+
+Input:
+The first line of input contains the number of test cases T. For each test case, the first line of input contains the number of nodes in the linked list, and next line contains two integers p and x.
+
+Output:
+For each testcase, there will be a single line of output which prints the modified linked list.
+
+User Task:
+The task is to complete the function addNode() which head reference, position and data to be inserted as the arguments, with no return type.
+
+Constraints:
+1 <= T <= 200
+1 <= N <= 104
+0 <= p < N
+
+Example:
+Input:
+2
+3
+2 4 5
+2 6
+4
+1 2 3 4
+0 44
+Output:
+2 4 5 6
+1 44 2 3 4
+
+Explanation:
+Testcase 1: p = 2, and x = 6. So, 6 is inserted after p, i.e, at position 3 (0-based indexing).
+Testcase 2: p = 0, and x = 44 . So, 44 is inserted after p, i.e, at position 1 (0-based indexing).
+
+Solution -
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+/* a Node of the doubly linked list */
+struct Node
+{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  Node(int x)
+  {
+      data = x;
+      next = prev = NULL;
+  }
+};
+
+void addNode(Node *head, int pos, int data);
+
+Node *insert(Node *head, int x)
+{
+    if (head == NULL)
+    {
+        return new Node(x);
+    }
+    Node *n = new Node(x);
+    
+    head->next = n;
+    n->prev = head;
+    head = n;
+    return head;
+}
+
+void printList(Node *head)
+{
+  // The purpose of below two loops is
+  // to test the created DLL
+  Node *temp=head;
+  if (temp != NULL) {
+ 
+  while (temp->next!=NULL)
+    temp=temp->next;
+  while (temp->prev!=NULL)
+   temp = temp->prev;
+  }
+  while (temp != NULL)
+  {
+      printf("%d ",temp->data);
+      temp=temp->next;
+  }
+  
+  cout << endl;
+}
+
+int main()
+{
+  int t;
+  scanf("%d",&t);
+  while(t--)
+  {
+  Node *head = NULL; 
+  Node *root = NULL;
+  int n;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++){
+     int x;
+     scanf("%d",&x);
+     head = insert(head, x);
+     if(root==NULL) root = head;
+  }     
+  head = root;
+  int pos,data;
+  cin>>pos>>data;
+  addNode(head, pos, data);
+  printList(head);
+  }
+  return 0;
+}// } Driver Code Ends
+
+
+/* a Node of the doubly linked list 
+struct Node
+{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  Node(int x) { data = x; next = prev = NULL; }
+}; */
+
+/* Function to insert into a Doubly Linked List */
+void addNode(Node *head, int pos, int data)
+{
+   // Your code here
+   Node *temp = new Node(data);
+   while(pos--){
+       head = head->next;
+   }
+   temp->prev = head;
+   temp->next = head->next;
+   head->next = temp;
+}
