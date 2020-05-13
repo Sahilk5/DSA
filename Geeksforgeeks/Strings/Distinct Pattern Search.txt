@@ -1,0 +1,86 @@
+Given a string S and a pattern P (of distinct characters) consisting of lowercase characters. The task is to check if pattern P exists in the given string S or not.
+Note : Pattern has distinct characters. There might be repetitions in text.
+
+Input:
+First line of input contains number of testcases T. For each testcase, first line of input contains string S and next line contains pattern P.
+
+Output:
+For each testcase, print "Yes" if pattern is found in the given string, else print "No".
+
+User Task:
+The task is to complete the function search() which finds for the pattern with distinct characters. The function takes string and pattern as parameters and returns either true or false. Return true if pattern is found else return false.
+
+Constraints:
+1 <= T <= 100
+1 <= |S|, |P| <= 103
+
+Example:
+Input:
+2
+abceabcdabceabcd
+abcd
+abceabcdabceabcd
+gfhij
+Output:
+Yes
+No
+
+Explanation:
+Testcase 1: Given pattern abcd is present at index 4.
+Testcase 2: Given pattern gfhij is not found in the string.
+
+Solution - 
+// { Driver Code Starts
+// C++ program for Naive Pattern 
+// Searching algorithm 
+#include<bits/stdc++.h> 
+using namespace std; 
+
+
+ // } Driver Code Ends
+
+
+/*  function to search for a pattern with distinct characters
+*   pat: pattern(to be searched in txt) given in the input
+*   txt: string given in the input
+*/
+bool search(string pat, string txt) 
+{ 
+	int n = txt.size();
+	int m = pat.size();
+	
+	for(int i = 0; i < n; i++){
+	    int j = 0;
+	    int flag = 1;
+	    while(j < m){
+	        if(txt[i+j] != pat[j]){
+	            flag = 0;
+	            break;
+	        }
+	        j++;
+	    }
+	    if(flag){return true;}
+	    i = i+j;
+	}
+	return false;
+
+	
+} 
+
+// { Driver Code Starts.
+
+// Driver Code 
+int main() 
+{ 
+	
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    string s, p;
+	    cin >> s >> p;
+	    if(search(p, s)) cout << "Yes"; else cout << "No"; cout << endl;
+	}
+	
+	return 0; 
+}  // } Driver Code Ends
