@@ -1,0 +1,83 @@
+Given two strings s1 and s2. Modify string s1 such that all the common characters of s1 and s2 is to be removed and the uncommon characters of s1 and s2 is to be concatenated.
+Note: If no modification is possible print -1.
+
+Input:
+The first line consists of an integer T i.e number of test cases. The first line of each test case consists of a string s1.The next line consists of a string s2. 
+
+Output:
+Print the concatenated string.
+
+User Task:
+The task is to complete the function concatenatedString() which removes the commong characters, concatenates, and returns the string.
+
+Constraints: 
+1 <= T <= 200
+1 <= |Length of Strings| <= 104
+
+Example:
+Input:
+2
+aacdb
+gafd
+abcs
+cxzca
+Output:
+cbgf
+bsxz
+
+Explanation:
+Testcase 1:The common characters of s1 and s2 are: a, d.The uncommon characters of s1 and s2 are: c, b, g and f. Thus the modified string with uncommon characters concatenated is: cbgf.
+Testcase 2: The common characters of s1 and s2 are: a,c . The uncommon characters of s1 and s2 are: b,s,x and z.Thus the modified string with uncommon characters concantenated is: bsxz.
+
+Solution - 
+// { Driver Code Starts
+// C++ program Find concatenated string with 
+// uncommon characters of given strings 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+string concatenatedString(string, string);
+
+/* Driver program to test above function */
+int main() 
+{ 
+	int t;
+	cin >> t;
+	
+	while(t--){
+    	string s1, s2;
+    	cin >> s1 >> s2;
+    	string res = concatenatedString(s1, s2);
+    	
+    	if(res.length() >= 1) cout << res << endl;
+    	else cout << "-1" << endl;
+	
+	}
+	return 0; 
+}
+// } Driver Code Ends
+
+
+// Function which concatenate two strings
+// after removing common characters
+string concatenatedString(string s1, string s2) 
+{ 
+    int count[26] = {};
+    string soln = "";
+    for(int i = 0; i < s2.size(); i++){
+        count[s2[i] - 'a'] = 1;
+    }
+    for(int i = 0; i < s1.size(); i++){
+        if(count[s1[i] - 'a'] == 1 || count[s1[i] - 'a'] == -1){
+            count[s1[i] - 'a'] = -1;
+        }
+        else{soln += s1[i];}
+    }
+    for(int i = 0; i < s2.size(); i++){
+        if(count[s2[i] - 'a'] == -1){
+        }
+        else{soln += s2[i];}
+    }
+    return soln;
+    
+}
