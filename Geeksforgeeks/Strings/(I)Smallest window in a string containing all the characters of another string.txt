@@ -1,0 +1,109 @@
+Given a string S and text P. Output the smallest window in the string S having all characters of the text P. Both the string S and text P contains lowercase english alphabets.
+
+Input:
+First line of the input contains an integer T, denoting the number of test cases. Then T test case follows. Each test contains 2 lines having a string S and next line contains text P.
+
+Output:
+Output the smallest window of the string containing all the characters of the text. If such window doesn`t exist or this task can not be done then print -1.
+
+Your Task:
+You only need to complete the function smallestWindow that returns smallest window of the string containing all the characters of the text. Else return "-1".
+
+Constraints:
+1 <= T <= 100
+1 <= S.length, P.length <= 1000
+
+Example:
+Input:
+2
+timetopractice
+toc
+zoomlazapzo
+oza
+Output:
+toprac
+apzo
+
+Explanation:
+Testcase 1: toprac is the smallest subset in which toc can be found.
+Testcase 2: To find oza in the zoomlazapzo the smallest subset is apzo.
+
+Solution -
+
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+// s is the given string
+// pat is the given text 
+
+string smallestWindow (string s, string pat){
+    // Your code here
+    int l1 = s.length();
+    int l2 = pat.length();
+    
+    if(l1 < l2){
+        return "-1";
+    }
+    
+    int hash_s[26] = {};
+    int hash_pat[26] = {};
+    
+    for(int i = 0; i < l2; i++){
+        hash_pat[pat[i] - 'a']++;
+    }
+    
+    int start = 0;
+    int start_i = -1;
+    int min_len = INT_MAX;
+    int count = 0;
+    
+    for(int i = 0; i < l1; i++){
+        hash_s[s[i] - 'a']++;
+        
+        if(hash_pat[s[i] - 'a'] != 0 && 
+            hash_s[s[i] - 'a'] <= hash_pat[s[i] - 'a']){
+                count++;
+            }
+        if(count == l2){
+            //try to minimize left pointer
+            while( hash_s[s[start] - 'a'] > hash_pat[s[start] - 'a']
+                || hash_pat[s[start] - 'a'] == 0){
+                    if(hash_s[s[start] - 'a'] > hash_pat[s[start] - 'a'])
+                        hash_s[s[start] - 'a']--;
+                    start++;
+                }
+            int window = i - start + 1;
+            if(min_len > window){
+                min_len = window;
+                start_i = start;
+            }
+        }
+    }
+    if(start_i == -1){
+        return "-1";
+    }
+    return s.substr(start_i, min_len);
+}
+
+// { Driver Code Starts.
+int main()
+ {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        string pat;
+        cin>>pat;
+        
+        cout<<smallestWindow(s, pat)<<endl;
+        
+    }
+	return 0;
+}  // } Driver Code Ends

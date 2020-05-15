@@ -1,0 +1,77 @@
+Given a string str and another string patt. Find the character in patt that is present at the minimum index in str. If no character of patt is present in str then print ‘No character present’.
+
+Input:
+The first line of input contains an integer T denoting the number of test cases. Then the description of T test cases follow. Each test case contains two strings str and patt respectively.
+
+Output:
+Print the character in patt that is present at the minimum index in str.Print "No character present" (without quotes) if no character of patt is present in str.
+
+Your Task:
+This is a function problem. You only need to complete the function printMinIndexCharN that prints the answer. The newline is auomatically appended by the driver code.
+
+Constraints:
+1 <= T <= 105
+1 <= |str|,|patt| <= 105
+
+Example:
+Input:
+2
+geeksforgeeks
+set
+adcffaet
+onkl
+Output:
+e
+No character present
+
+Explanation:
+Testcase 1: e is the character which is present in given patt "geeksforgeeks" and is first found in str "set".
+Testcase 2: There is none of the characters which is common in patt and str.
+
+Solution -
+
+// { Driver Code Starts
+
+// C++ implementation to find the character in first 
+// string that is present at minimum index in second
+// string
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+
+
+void printMinIndexChar(string str, string patt)
+{
+    int c[26] = {};
+    for(int i = 0; i < patt.size(); i++){
+        c[patt[i] - 'a']++;
+    }
+    
+    for(int i = 0; i < str.size(); i++){
+        if(c[str[i] - 'a'] > 0){
+            cout<<str[i];
+            return;
+        }
+    }
+    cout<<-1;
+}
+
+// { Driver Code Starts.
+
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    string str;
+	    string patt;
+	    cin>>str;
+	    cin>>patt;
+	    printMinIndexChar(str, patt);
+	    cout<<endl;
+	}return 0;
+}
+  // } Driver Code Ends
