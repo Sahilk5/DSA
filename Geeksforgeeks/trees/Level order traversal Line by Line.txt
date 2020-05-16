@@ -1,0 +1,207 @@
+Given a Binary Tree, your task is to print its level order traversal such that each level is separated by $.
+For the below tree the output will be 1 $ 2 3 $ 4 5 6 7 $ 8 $.
+
+          1
+       /     \
+     2        3
+   /    \     /   \
+  4     5   6    7
+    \
+     8
+
+Input:
+The first line of input contains the number of test cases T. For every test case, the only line of input contains a string representing the tree as described below: 
+
+The values in the string are in the order of level order traversal of the tree where, numbers denote node values, and a character “N” denotes NULL child.
+
+For example:
+
+ 
+For the above tree, the string will be: 1 2 3 N N 4 6 N 5 N N 7 N
+
+Output:
+For each test case, in a new line, print the output in the required format.
+
+Your Task:
+This is a function problem. You don't need to read input. Just complete the function levelOrder() that takes nodes as parameter and prints level order line-by-line. The newline for every test case is automatically appended by the driver code.
+
+Constraints:
+1 <= T<= 100
+1 <= Number of edges <= 1000
+1 <= Data of a node <= 100
+
+Example:
+Input:
+2
+1 4 N 4 2 
+10 20 30 40 60 N N 
+Output:
+1 $ 4 $ 4 2 $
+10 $ 20 30 $ 40 60 $
+
+Explanation:
+Testcase1: The tree is
+                    1
+                 /
+               4
+            /     \
+         4        2
+So, the level order would be 1 $ 4 $ 4 2 $
+Testcase2: The tree is
+                           10
+                        /        \
+                     20         30
+                  /       \
+               40       60
+So, the level order would be 10 $ 20 30 $ 40 60 $
+
+Solution -
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// Tree Node
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+void levelOrder(struct Node* node);
+
+// Utility function to create a new Tree Node
+Node* newNode(int val)
+{
+    Node* temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
+}
+
+
+// Function to Build Tree
+Node* buildTree(string str)
+{
+    // Corner Case
+    if(str.length() == 0 || str[0] == 'N')
+        return NULL;
+
+    // Creating vector of strings from input
+    // string after spliting by space
+    vector<string> ip;
+
+    istringstream iss(str);
+    for(string str; iss >> str; )
+        ip.push_back(str);
+
+    // for(string i:ip)
+    //     cout<<i<<" ";
+    // cout<<endl;
+    // Create the root of the tree
+    Node* root = newNode(stoi(ip[0]));
+
+    // Push the root to the queue
+    queue<Node*> queue;
+    queue.push(root);
+
+    // Starting from the second element
+    int i = 1;
+    while(!queue.empty() && i < ip.size()) {
+
+        // Get and remove the front of the queue
+        Node* currNode = queue.front();
+        queue.pop();
+
+        // Get the current node's value from the string
+        string currVal = ip[i];
+
+        // If the left child is not null
+        if(currVal != "N") {
+
+            // Create the left child for the current node
+            currNode->left = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->left);
+        }
+
+        // For the right child
+        i++;
+        if(i >= ip.size())
+            break;
+        currVal = ip[i];
+
+        // If the right child is not null
+        if(currVal != "N") {
+
+            // Create the right child for the current node
+            currNode->right = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->right);
+        }
+        i++;
+    }
+
+    return root;
+}
+
+
+int main() {
+    int t;
+    scanf("%d ",&t);
+    while(t--)
+    {
+        string s;
+        getline(cin,s);
+        Node* root = buildTree(s);
+
+        levelOrder(root);
+        cout<<endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+
+/* A binary tree Node
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+ */
+
+//You are required to complete this method
+void levelOrder(Node* node)
+{
+    queue<Node*> q;
+    q.push(node);
+    q.push(NULL);
+
+  while(q.size() > 1){
+      if(q.front() == NULL){
+          q.pop();
+          cout<<"$ ";
+          q.push(NULL);
+      }
+      Node* curr = q.front();
+      q.pop();
+      cout<<curr->data<<" ";
+      if(curr->left != NULL){q.push(curr->left);}
+      if(curr->right != NULL){q.push(curr->right);}
+  }
+  cout<<"$";
+}
+
+

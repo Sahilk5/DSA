@@ -1,0 +1,138 @@
+Given a dictionary of words where each word follows CamelCase notation, print all words in the dictionary that match with a given pattern consisting of uppercase characters only.
+
+CamelCase is the practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter. Common examples include: “PowerPoint” and “WikiPedia”, “GeeksForGeeks”, “CodeBlocks”, etc.
+
+Input:
+The first line of input contains an integer T denoting the number of test cases. Then the description of T test cases follow. Each test case contains an integer n denoting the number of words in the dictionary. The next line contains the vector of strings in the dictionary. The last line contains the pattern.
+
+Output:
+Print all words in the dictionary that match with a given pattern consisting of uppercase characters only in lexicographic order. If the pattern is not found, print "No match found" (without quotes).
+
+Constraints:
+1 <= T <= 100
+1 <= n <= 100
+1 <= length of string <= 100
+1 <= length of patter <= length of string <= 100
+
+Example:
+Input:
+2
+8
+Hi Hello HelloWorld HiTech HiGeek HiTechWorld HiTechCity HiTechLab
+HA
+3
+WelcomeGeek WelcomeToGeeksForGeeks GeeksForGeeks
+WTG
+
+Output:
+No match found
+WelcomeToGeeksForGeeks
+
+Explanation:
+Testcase 1:
+WTG occurs in WelcomeToGeeksForGeeks.
+
+Solution-
+#include <bits/stdc++.h> 
+using namespace std;
+
+struct trieNode{
+    trieNode* children[26];
+    bool isEnd;
+    vector<string> words;
+    trieNode(){
+        for(int i = 0; i < 26; i++){
+            children[i] = NULL;
+        }
+        isEnd = false;
+    }
+};
+
+bool compare(string s1, string s2){
+    int n = s1.size();
+    int m = s2.size();
+    int i = 0;
+    int j = 0;
+    while(i < n && j < m){
+        if(s1[i] - 'A' >= 26){while(s1[i] - 'A' >= 26)i++;}
+        if(s2[j] - 'A' >= 26){while(s2[j] - 'A' >= 26)j++;}
+        if(s1[i] > s2[j]){return s1[i] < s2[j];}
+        else if(s1[i] < s2[j]){return s1[i] < s2[j];}
+        i++;j++;
+    }
+    i = 1; j = 1;
+    while(i < n && j < m){
+        if(s1[i] > s2[j]){return s1[i] < s2[j];}
+        else if(s1[i] < s2[j]){return s1[i] < s2[j];}
+        i++;j++;
+    }
+}
+
+class trie{
+    
+    trieNode *root;
+    public:
+    trie(){
+        root = getNode();
+    }
+    
+    trieNode* getNode(){
+        return new trieNode();
+    }
+    void insert(string str){
+        trieNode *curr = root;
+        for(int i = 0; i < str.size(); i++){
+            int index = str[i] - 'A';
+            if(index >= 26){
+                continue;
+            }
+            if(curr->children[index] == NULL){
+                curr->children[index] = getNode();
+            }
+            curr->words.push_back(str);
+            curr = curr->children[index];
+        }
+                    
+        curr->words.push_back(str);
+        curr->isEnd = true;
+    }
+    void search(string str){
+        trieNode *curr = root;
+        for(int i = 0; i < str.size(); i++){
+            int index = str[i] - 'A';
+            if(index >= 26)continue;
+            if(curr->children[index] == NULL){
+                cout<<"No match found"<<endl;
+                return;
+            }
+            curr = curr->children[index];
+        }
+        if(curr != NULL){
+            sort(curr->words.begin(), curr->words.end(), compare);
+            for(auto i : curr->words){
+                cout<<(i)<<" ";
+            }
+            cout<<endl;
+        }
+    }
+};
+
+int main() {
+	//code
+	int tc;
+	cin>>tc;
+	while(tc--){
+	    int n;
+	    string str;
+	    trie* t = new trie();
+	    cin>>n;
+	    for(int i = 0; i < n; i++){
+	        cin>>str;
+	        t->insert(str);
+	    }
+	    cin>>str;
+	    t->search(str);
+	}
+	
+	return 0;
+}
