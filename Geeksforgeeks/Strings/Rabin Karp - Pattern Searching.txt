@@ -1,0 +1,40 @@
+https://practice.geeksforgeeks.org/problems/rabin-karp-pattern-searching/1/?track=SPC-Strings&batchId=154
+
+Solution -
+
+bool search(string pat, string txt, int q) 
+{ 
+	// Your code here
+	int h = 1;
+	int n = pat.size();
+	int m = txt.size();
+	for(int i = 1; i < n; i++){
+	    h = (h*d)%q;
+	}
+	
+	int p = 0;int t = 0;
+	
+	for(int i = 0; i < n; i++){
+	    p = (d*p + pat[i])%q;
+	    t = (d*t + txt[i])%q;
+	}
+	for(int i = 0; i <= m-n; i++){
+	    if(p == t){
+	        bool flag = true;
+	        for(int j = 0; j < n; j++){
+	            if(txt[i+j] != pat[j]){
+	                flag = false;
+	                break;
+	            }
+	        }
+	        if(flag){
+	            return 1;
+	        }
+	    }
+	    if(i < m-n){
+	        t = (d*(t - (txt[i]*h)) + txt[i+n])%q;
+	        if(t<0) t = t+q;
+	    }
+	}
+	return 0;
+} 

@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/vertical-width-of-a-binary-tree/1/?track=PC-W6-T&batchId=154
+
+Solution - 
+
+void verticalWidthUtil(Node* root, int &min, int &max, int curr){
+    if(root!=NULL){
+        verticalWidthUtil(root->left, min, max, curr-1);
+        if(curr > max){max=curr;}
+        if(curr < min){min=curr;}
+        verticalWidthUtil(root->right, min, max, curr+1);
+    }
+    return;
+}
+int verticalWidth(Node* root)
+{
+    if(root == NULL)return 0;
+    int min = 0;
+    int max = 0;
+    verticalWidthUtil(root, min, max, 0);
+    return abs(min)+max+1;
+    // Code here
+}

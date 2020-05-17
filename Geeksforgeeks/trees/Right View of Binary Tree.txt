@@ -1,0 +1,25 @@
+https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1/?track=PC-W6-T&batchId=154
+
+Solution -
+// Should print right view of tree
+void rightView(Node *root)
+{
+   // Your Code here
+   if(root==NULL)return;
+   queue<Node*> q;
+   q.push(root);
+   while(!q.empty()){
+       int count = q.size();
+       Node* t = q.front();
+       q.pop();
+       cout<<t->data<<" ";
+       if(t->right){q.push(t->right);}
+       if(t->left){q.push(t->left);}
+       for(int i = 1; i < count; i++){
+            t = q.front();
+            q.pop();
+            if(t->right){q.push(t->right);}
+            if(t->left){q.push(t->left);}
+       }
+   }
+}
