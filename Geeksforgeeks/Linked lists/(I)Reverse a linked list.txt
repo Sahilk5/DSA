@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1/?track=PC-W5-LL&batchId=154
+
+Solution 1  - 
+ 
+ Node* reverseList(Node *head)
+{
+  // Your code here
+  if(head == NULL || head->next == NULL){
+      return head;
+  }
+  Node* new_head = reverseList(head->next);
+  Node* new_tail = head->next;
+  new_tail->next = head;
+  head->next = NULL;
+  return new_head;
+}
+
+
+Solution 2 -
+
+Node* reverseListUtil(Node* curr, Node* prev){
+    if(curr == NULL) return prev;
+    Node*next = curr->next;
+    curr->next = prev;
+    return reverseListUtil(next, curr);
+}
+
+Node* reverseList(Node *head)
+{
+  // Your code here
+  if(head == NULL || head->next == NULL)
+  return head;
+  Node* curr = head;
+  Node* prev = NULL;
+  return reverseListUtil(curr, prev);
+}

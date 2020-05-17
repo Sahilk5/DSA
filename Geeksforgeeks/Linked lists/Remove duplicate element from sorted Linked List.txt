@@ -1,0 +1,18 @@
+https://practice.geeksforgeeks.org/problems/remove-duplicate-element-from-sorted-linked-list/1/?track=PC-W5-LL&batchId=154
+
+Solution -
+
+Node *removeDuplicates(Node *root)
+{
+ // your code goes here
+ Node* curr = root;
+ Node* prev = root;
+ while(curr != NULL){
+     prev = curr;
+     while(curr != NULL && curr->data == prev->data){
+         curr = curr->next;
+     }
+     prev->next = curr;
+ }
+ return root;
+}

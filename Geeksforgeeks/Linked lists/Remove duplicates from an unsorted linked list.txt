@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/remove-duplicates-from-an-unsorted-linked-list/1/?track=PC-W5-LL&batchId=154
+
+Solution -
+
+{
+    unordered_set<int> set;
+    Node* curr = head;
+    Node* prev = head;
+    set.insert(head->data);
+    while(curr != NULL && curr->next != NULL){
+        curr = curr->next;
+        if(set.find(curr->data) != set.end()){
+            if(curr->next){
+                prev->next = curr->next;
+                delete(curr);
+                curr = prev;
+            }else{delete(curr);curr = prev;prev->next = NULL;}
+        }else{
+            set.insert(curr->data);
+        }
+        prev = curr;
+    }
+    return head;
+}
