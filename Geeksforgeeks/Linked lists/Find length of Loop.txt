@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/find-length-of-loop/1/?track=PC-W5-LL&batchId=154
+
+Solution -
+
+int countNodesinLoop(struct Node *head)
+{
+     Node* slow = head;
+     Node* fast = head;
+     while(fast != NULL && fast->next != NULL){
+         fast = fast->next->next;
+         slow = slow->next;
+         if(fast == slow){
+             break;
+         }
+     }
+     if(slow != fast)return 0;
+     slow = fast->next;
+     int count = 1;
+     while(slow != fast){
+         slow = slow->next;
+         count++;
+     }
+     return count;
+}
