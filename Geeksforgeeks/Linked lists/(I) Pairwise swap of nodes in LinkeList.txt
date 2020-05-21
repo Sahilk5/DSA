@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/pairwise-swap-of-nodes-in-linkelist/1/?track=PC-W5-LL&batchId=154
+
+Solution -
+
+struct Node* pairwise_swap(struct Node* head)
+{
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+    Node* prev = head;
+    Node* curr = head->next->next;
+    head = head->next;
+    head->next = prev;
+    while(curr && curr->next){
+        prev->next = curr->next;
+        prev = curr;
+        Node* next = curr->next->next;
+        curr->next->next = curr;
+        prev = curr;
+        curr = next;
+    }
+    prev->next = curr;
+    return head;
+}

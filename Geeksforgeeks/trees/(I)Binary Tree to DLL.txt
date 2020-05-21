@@ -1,0 +1,23 @@
+https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1/?track=PC-W6-T&batchId=154
+
+Solution - 
+
+Node* pre = NULL;
+
+void bToDLLUtil(Node *root, Node **head_ref){
+    if(root == NULL) return;
+
+    bToDLLUtil(root->left, head_ref);
+    if(pre == NULL){ *head_ref = root;}
+    else{
+        root->left = pre;
+        pre->right = root; 
+    }
+    pre = root;
+    bToDLLUtil(root->right, head_ref);
+}
+void bToDLL(Node *root, Node **head_ref)
+{
+    pre = NULL;
+    bToDLLUtil(root, head_ref);
+}
