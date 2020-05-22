@@ -1,0 +1,19 @@
+https://practice.geeksforgeeks.org/problems/largest-number-with-given-sum-1587115620/1/?track=SPC-Greedy&batchId=154
+
+Solution -
+
+string largestNumber(int n, int sum){
+    int i = 9;
+    string ans = "";
+    if(sum > 9*n)return "-1";
+    while(n--){
+        if(sum >= i){
+            sum -= i;
+            ans += to_string(i);
+        }else{
+            i--;
+            n++;
+        }
+    }
+    return ans;
+}

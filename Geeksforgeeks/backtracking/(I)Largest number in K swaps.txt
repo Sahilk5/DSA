@@ -1,0 +1,35 @@
+https://practice.geeksforgeeks.org/problems/largest-number-in-k-swaps-1587115620/1/?track=SPC-Back&batchId=154
+
+Solution -
+
+void findMaximumNum(string str, int k, int ind, string &max){
+    if(k == 0)return;
+    
+    char maxv = str[ind];
+    int n = str.size();
+    for(int i = ind; i < n; i++){
+        if(str[i] > maxv){
+            maxv = str[i];
+        }
+    }
+    
+    if(maxv != str[ind]){
+        k--;
+    }
+    for(int i = ind; i < n; i++){
+        if(str[i] == maxv){
+            swap(str[ind], str[i]);
+            if(str.compare(max) > 0){
+                max = str;
+            }
+            findMaximumNum(str, k, ind+1, max);
+            swap(str[ind], str[i]);
+        }
+    }
+    
+}
+
+void findMaximumNum(string str, int k, string& max) {
+    // Your code here
+    findMaximumNum(str, k, 0, max);
+}
