@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/make-binary-tree/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+void convert(Node *head, TreeNode *&root) {
+    
+    root = new TreeNode(head->data);
+    queue<TreeNode *> q;
+    q.push(root);
+    head = head->next;
+    while(head){
+        TreeNode* node = q.front();
+        q.pop();
+        node->left = new TreeNode(head->data);
+        q.push(node->left);
+        head = head->next;
+        if(head == NULL)return;
+        node->right = new TreeNode(head->data);
+        q.push(node->right);
+        head = head->next;
+    }
+}

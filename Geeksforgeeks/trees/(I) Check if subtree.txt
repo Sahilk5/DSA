@@ -1,0 +1,45 @@
+https://practice.geeksforgeeks.org/problems/check-if-subtree/1/?track=PC-W6-T&batchId=154
+
+Solution - 
+
+void preOrder(string &s, Node* node){
+    if(node != NULL){
+        s += to_string(node->data);
+        preOrder(s, node->left);
+        preOrder(s, node->right);
+    }
+    else{
+        s += '$';
+        return;
+    }
+}
+
+void inOrder(string &s, Node* node){
+    if(node!= NULL){
+        inOrder(s, node->left);
+        s += to_string(node->data);
+        inOrder(s, node->right);
+    }
+    else{
+        s += '$';
+        return;
+    }
+}
+
+bool isSubTree(Node* T, Node* S) {
+    // Your code here
+    // return 1 if S is subtree of T else 0
+    if(S == NULL)return true;
+    if(T == NULL)return false;
+    
+    string inT="";
+    string inS="";
+    string preT="";
+    string preS="";
+    preOrder(preT, T);
+    preOrder(preS, S);
+    inOrder(inT, T);
+    inOrder(inS, S);
+    
+    return (preT.find(preS) != string::npos) && (inT.find(inS) != string::npos);
+}

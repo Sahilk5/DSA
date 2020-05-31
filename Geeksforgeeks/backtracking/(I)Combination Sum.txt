@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/combination-sum-1587115620/1/?track=SPC-Back&batchId=154
+
+Solution-
+void findNums(vector<int> &A, int B, vector<int> &r, vector<vector<int> > &res,
+                int i){
+                    if(B < 0)
+                    return;
+                    if(B == 0){
+                        res.push_back(r);
+                        return;
+                    }
+                    
+                    while(i < A.size() && A[i] <= B){
+                        r.push_back(A[i]);
+                        findNums(A,B-A[i], r,res, i);i++;
+                        r.pop_back();
+                    }
+                }
+
+vector<vector<int> > combinationSum(vector<int> &A, int B) {
+    // Your code here
+    sort(A.begin(), A.end());
+    A.erase(unique(A.begin(), A.end()), A.end());
+    vector<int> r;
+    vector<vector<int> > res;
+    findNums(A,B,r,res,0);
+    return res;
+}

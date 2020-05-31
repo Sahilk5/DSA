@@ -1,0 +1,21 @@
+https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+void bfs(int s, vector<int> g[], vector<bool> &vis, int N) {
+
+    // Your code here
+    vis[s] = true;
+    queue<int> q;
+    q.push(s);
+    while(!q.empty()){
+        s = q.front();
+        q.pop();
+        cout<<s<<" ";
+    for(int i : g[s]){
+        if(!vis[i]){
+        vis[i] = true;
+        q.push(i);}
+    }
+    }
+}

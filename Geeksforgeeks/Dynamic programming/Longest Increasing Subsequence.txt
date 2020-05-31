@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+
+int longestSubsequence(int n, int a[]){
+    
+   // your code here
+    int lis[n+1] = {0};
+    lis[0] = 1;
+    int maxi = 0;
+    int maxLis = 0;
+    for(int i = 1; i < n; i++){
+        maxLis = 0;
+        for(int j = 0; j < i; j++){
+            if(lis[j] > maxLis && a[j] < a[i]){
+                maxLis = lis[j];
+            }
+        }
+        lis[i] = maxLis + 1;
+    }
+    for(int i = 0; i < n; i++){
+        if(lis[i] > maxLis){
+            maxLis = lis[i];
+        }
+    }
+    return maxLis;
+}

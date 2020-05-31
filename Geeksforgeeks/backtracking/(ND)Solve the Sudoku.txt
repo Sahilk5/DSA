@@ -1,0 +1,5 @@
+https://practice.geeksforgeeks.org/problems/solve-the-sudoku-1587115621/1/?track=SPC-Back&batchId=154
+
+Solution -
+
+https://www.geeksforgeeks.org/sudoku-backtracking-7/

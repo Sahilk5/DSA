@@ -1,0 +1,40 @@
+https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/537/week-4-may-22nd-may-28th/3337/
+
+Solution -
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+int freq[256] = {0};
+int first_occ[256];
+
+
+bool comp(char c1, char c2){
+    if(freq[c1] != freq[c2]){
+        return freq[c1] > freq[c2];
+    }
+    else{
+        return first_occ[c1] < first_occ[c2];
+    }
+}
+
+class Solution {
+public:
+    string frequencySort(string s) {
+
+        for(int i = 0; i < 256; i++){
+            first_occ[i] = -1;
+            freq[i] = 0;
+        }
+        for(int i = 0; i < s.size(); i++){
+            freq[s[i]]++;
+            if(first_occ[s[i]] == -1){
+                first_occ[s[i]] = i;
+            }
+        }
+        
+        sort(s.begin(), s.end(), comp);
+        
+        return s;
+    }
+};

@@ -1,0 +1,62 @@
+https://practice.geeksforgeeks.org/problems/longest-common-subsequence-1587115620/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+int lcsUtil(int x, int y, string s1, string s2, int n, int m, int arr[][101]){
+    if(x < 0 || y < 0){
+        return 0;
+    }
+    if(arr[x][y] != -1){
+        return arr[x][y];
+    }
+    if(s1[x] == s2[y]){
+        arr[x][y] = 1+lcsUtil(x-1, y-1, s1, s2, n, m, arr);
+        return arr[x][y];
+    }else{
+        arr[x][y] = max(lcsUtil(x-1, y, s1, s2, n, m, arr),
+        lcsUtil(x, y-1, s1, s2, n, m, arr));
+        return arr[x][y];
+    }
+    
+}
+
+int lcs(int x, int y, string s1, string s2){
+    
+    // your code here
+    int n = s1.size();
+    int m = s2.size();
+    int arr[101][101];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            arr[i][j] = -1;
+        }
+    }
+    lcsUtil(x-1, y-1, s1, s2, n, m, arr);
+    int max = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+           if(arr[i][j] > max){max = arr[i][j];}
+        }
+    }
+    return max;
+}
+
+Solution from book - 
+int lcs(int x, int y, string s1, string s2){
+    
+    int dp[1001][1001];
+
+    for(int i=0;i<=x;i++)
+    {
+        for(int j=0;j<=y;j++)
+        {
+            if(i==0||j==0)
+            dp[i][j]=0;                         // If i or j is 0, mark dp as 0 and continue
+            else if (s1[i-1] == s2[j-1])        // If the char in both strings are equal
+            dp[i][j] = dp[i-1][j-1] + 1;        // Add 1 to the output we got without including these both chars.
+            else
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1]); // If s1[i-1]!=s2[j-1], check the max output which comes from s1 or s2 without current char considering.
+        }
+    }
+    return dp[x][y];   // Output the answer of dp[x][y]
+}

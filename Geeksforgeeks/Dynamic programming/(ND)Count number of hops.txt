@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/count-number-of-hops-1587115620/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+long long countWays(int n){
+    
+    // your code here
+    unsigned long long memo[n+1] = {0};
+    memo[0] = 1;
+    memo[1] = 1;
+    memo[2] = 2;
+    for(int i = 1; i <= 3; i++){
+        for(int j = 3; j <= n; j++){
+            if(j >= i){
+                memo[j] = (memo[j] + memo[j-i])%1000000007;
+            }
+        }
+    }
+    return memo[n];
+}

@@ -1,0 +1,47 @@
+https://practice.geeksforgeeks.org/problems/swap-kth-node-from-beginning-and-kth-node-from-end-in-a-singly-linked-list/1/?track=PC-W5-LL&amp;batchId=154
+
+Solution -
+
+Node *swapkthnode(Node* head, int num, int k)
+{   
+    int n = 0;
+    Node* curr1 = head;
+    if(head == NULL)return head;
+    while(curr1 != NULL){
+        curr1 = curr1->next;
+        n++;
+    }
+    if(k > n){;return head;}
+    if(n == (2*k - 1))return head;
+    
+    Node *x = head; 
+    Node *x_prev = NULL; 
+    for (int i = 1; i < k; i++) 
+    { 
+        x_prev = x; 
+        x = x->next; 
+    }
+    
+    Node *y = head; 
+    Node *y_prev = NULL; 
+    for (int i = 1; i < n-k+1; i++) 
+    { 
+        y_prev = y; 
+        y = y->next; 
+    } 
+    
+    if (x_prev) 
+        x_prev->next = y; 
+    if (y_prev) 
+        y_prev->next = x; 
+    
+    Node *temp = x->next; 
+    x->next = y->next; 
+    y->next = temp;
+    
+    if (k == 1) 
+        head = y; 
+    if (k == n) 
+        head = x; 
+    return head;
+}
