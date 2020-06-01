@@ -1,0 +1,19 @@
+https://practice.geeksforgeeks.org/problems/cutted-segments1642/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+int maximizeTheCuts(int n, int x, int y, int z)
+{
+    //Your code here
+    int cuts[n+1] = {0};int a,b,c;
+    
+    for(int i = 1; i <= n; i++){
+        //cuts[i] = -1;
+        a = i-x>=0 ? cuts[i-x] : -1;
+        b = i-y>=0 ? cuts[i-y] : -1;
+        c = i-z>=0 ? cuts[i-z] : -1;
+        cuts[i] =  max(a,max(b,c));
+        if(cuts[i] != -1)cuts[i]++;
+    }
+    return cuts[n] != -1 ? cuts[n] : 0;
+}

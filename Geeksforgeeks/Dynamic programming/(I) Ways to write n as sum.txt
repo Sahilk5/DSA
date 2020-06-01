@@ -1,0 +1,18 @@
+https://practice.geeksforgeeks.org/problems/ways-to-write-n-as-sum-1587115621/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+int countWays(int n)
+{
+    // your code here
+    long long cways[n+1] = {0};
+    cways[0] = 1;
+    for(int i = 1; i < n; i++){
+        for(int j = i; j <= n; j++){
+            if(i <= j){
+                cways[j] += cways[j-i]%1000000007;
+            }
+        }
+    }
+    return cways[n]%1000000007;
+}

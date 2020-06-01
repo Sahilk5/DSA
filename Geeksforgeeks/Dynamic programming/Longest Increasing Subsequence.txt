@@ -1,6 +1,6 @@
 https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1/?track=SPC-DP&batchId=154
 
-Solution -
+Solution -(n^2)
 
 
 int longestSubsequence(int n, int a[]){
@@ -26,3 +26,6 @@ int longestSubsequence(int n, int a[]){
     }
     return maxLis;
 }
+
+Solution- (nlogn)
+Use tail array
