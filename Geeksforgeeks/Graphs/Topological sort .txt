@@ -1,0 +1,33 @@
+https://practice.geeksforgeeks.org/problems/topological-sort/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+int* topoSort(int V, vector<int> adj[]) {
+    // Your code here
+    int indegree[V] = {0};
+    int *ts = new int[V];
+    for(int i = 0; i < V; i++){
+        for(int j = 0; j < adj[i].size(); j++){
+            indegree[adj[i][j]]++;
+        }
+    }
+    queue<int > q;
+    for(int i = 0; i < V; i++){
+        if(indegree[i] == 0){
+            q.push(i);
+        }
+    }
+    int j = 0;
+    while(!q.empty()){
+        int v = q.front();q.pop();
+        ts[j] = v;
+        j++;
+        for(int i = 0; i < adj[v].size();i++){
+            indegree[adj[v][i]]--;
+            if(indegree[adj[v][i]] == 0){
+                q.push(adj[v][i]);
+            }
+        }
+    }
+    return ts;
+}

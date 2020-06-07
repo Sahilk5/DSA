@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/nth-catalan-number/0/?track=SPC-DP&batchId=154
+
+Solution -
+
+#include<iostream>
+#include <boost/multiprecision/cpp_int.hpp> 
+using boost::multiprecision::cpp_int; 
+using namespace std;
+int main()
+ {
+	//code
+	int t, n;
+	cin>>t;
+
+	while(t--){
+	    cpp_int catalan[101] = {0};
+	    for(int i = 0; i <= 100; i++){
+	        catalan[i] = 0;
+	    }
+	    catalan[0] = 1;
+	    cin>>n;
+	    //if(catalan[n] != 0){cout<<catalan[n]<<endl;continue;}
+	    for(int i = 1; i <= n; i++){
+	        if(catalan[i] != 0){continue;}
+	        for(int j = 0; j < i; j++){
+	            catalan[i] += (catalan[j] * catalan[i-j-1]);
+	        }
+	    }cout<<catalan[n]<<endl;
+	}
+	return 0;
+}

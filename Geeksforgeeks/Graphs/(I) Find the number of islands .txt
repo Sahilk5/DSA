@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/find-the-number-of-islands/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+
+bool isSafe(int ROW, int COL, bool visited[1000][1000], int row, int col){
+    return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL) && (!visited[row][col]); 
+}
+
+void dfs(vector<int> A[], int N, int M, bool vis[1000][1000], int i, int j){
+    int rno[] = {-1, -1, -1, 0, 0, 1, 1, 1 };
+    int cno[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    vis[i][j] = true;
+    for(int k = 0; k < 8; k++){
+        if(isSafe(N, M, vis, i+rno[k], j+cno[k]) && A[i+rno[k]][j+cno[k]]){
+            dfs(A, N, M, vis, i+rno[k], j+cno[k]);
+        }
+    }
+}
+
+int findIslands(vector<int> A[], int N, int M) {
+
+    // Your code here
+    bool visited[1000][1000];
+    memset(visited, false, sizeof(visited));
+    int count = 0;
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
+            if(A[i][j] && !visited[i][j]){
+                dfs(A, N, M, visited, i, j);
+                count++;
+            }
+        }
+    }
+    return count;
+}

@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/level-of-nodes-1587115620/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+int Graph::levels( int x, int in){
+    // Your code here
+    bool vis[V];
+    memset(vis, false, V);
+    
+    int lvl[V] = {0};
+    vis[x] = true;
+    queue<int> q;
+    q.push(x);
+    while(!q.empty()){
+        int s = q.front();
+        q.pop();
+    for(int i : adj[s]){
+        if(!vis[i]){
+        lvl[i] = lvl[s]+1;
+        if(i == in){
+            return lvl[i];
+        }
+        vis[i] = true;
+        q.push(i);}
+    }
+    }
+    return -1;
+}

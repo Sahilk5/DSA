@@ -1,0 +1,23 @@
+https://practice.geeksforgeeks.org/problems/ncr-1587115620/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+int nCrModp(int n, int r) 
+{ 
+  
+  // your code here
+  if(r > n)return 0;
+  if(r==n || r == 0)return 1;
+  
+  long long dp[2][n];
+  memset(dp, 0, sizeof(dp));
+  dp[0][0] = 1;
+  for(int i = 1; i <= n; i++){
+      dp[i%2][0] = 1;
+      for(int j = 1; j < i && j <= r; j++){
+          dp[i%2][j] = dp[(i-1)%2][j-1]%1000000007 + dp[(i-1)%2][j]%1000000007;
+      }
+      dp[i%2][i] = 1;
+  }
+  return dp[n%2][r]%1000000007;
+} 

@@ -1,0 +1,14 @@
+https://practice.geeksforgeeks.org/problems/count-ways-to-nth-stairorder-does-not-matter1322/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+long long countWays(int m){
+    // your code here
+    long long sol[m+1] = {0};
+    sol[0] = 1;
+    sol[1] = 1;
+    for(int i = 2; i <= m; i++){
+        sol[i] = (1 + sol[i-2])%1000000007;
+    }
+    return sol[m];
+}

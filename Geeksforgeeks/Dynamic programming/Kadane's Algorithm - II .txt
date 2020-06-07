@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/kadanes-algorithm-ii/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+long long maximumSum(int arr[], int sizeOfArray)
+{
+  //Your code here
+  long long dp[sizeOfArray+1] = {0};
+  long long ans = arr[0];
+  dp[0] = arr[0];
+  dp[1] = max(dp[0], arr[1]);
+  for(int i = 2; i < sizeOfArray; i++){
+      dp[i] = max(dp[i-2]+arr[i], max(dp[i-1], (long long)arr[i]));
+  }
+  
+  //We are including max of arr[i] to support all negative answers
+  
+  for(int i = 0; i < sizeOfArray; i++){
+      ans = max(ans, dp[i]);
+  }
+  return ans;
+}

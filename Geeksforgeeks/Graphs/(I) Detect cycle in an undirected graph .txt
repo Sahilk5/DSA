@@ -1,0 +1,32 @@
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+bool isCyclicUtil(vector<int> g[],int s, int parent, bool vis[]){
+    vis[s] = true;
+    for(int i : g[s]){
+        if(vis[i] == false){
+            if(isCyclicUtil(g, i, s, vis))
+                return true;
+        }
+        else if(i != parent){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isCyclic(vector<int> g[], int V)
+{
+   // Your code here
+   bool visited[V];
+   memset(visited, false, V);
+   bool flag = false;
+   for(int i = 0; i < V; i++){
+       if(!visited[i]){
+           flag = isCyclicUtil(g, i, -1, visited);
+           if(flag) return true;
+       }
+   }
+   return false;
+}

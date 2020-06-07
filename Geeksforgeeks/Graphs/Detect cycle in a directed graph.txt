@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+bool isCyclicUtil(vector<int> g[],int s, bool parent[], bool vis[]){
+    vis[s] = true;
+    parent[s] = true;
+    for(int i : g[s]){
+        if(vis[i] == false){
+            if(isCyclicUtil(g, i, parent, vis))
+                return true;
+        }
+        else if(parent[i] == true){
+            return true;
+        }
+    }
+    parent[s] = false;
+    return false;
+}
+
+bool isCyclic(int V, vector<int> adj[])
+{
+    // Your code here
+   bool visited[V];
+   memset(visited, false, V);
+   bool parent[V];
+   memset(parent, false, V);
+   bool flag = false;
+   for(int i = 0; i < V; i++){
+       if(!visited[i]){
+           flag = isCyclicUtil(adj, i, parent, visited);
+           if(flag) return true;
+       }
+   }
+   return false;
+}

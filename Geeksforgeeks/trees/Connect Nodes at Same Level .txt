@@ -1,0 +1,23 @@
+https://practice.geeksforgeeks.org/problems/connect-nodes-at-same-level/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+void connect(Node *p)
+{
+   // Your Code Here
+   queue<Node*> q;
+   q.push(p);
+   q.push(NULL);
+   while(!q.empty() && q.front() != NULL){
+       Node* node = q.front();
+       q.pop();
+       Node* right = q.front();
+       node->nextRight = right;
+       if(node->left) q.push(node->left);
+       if(node->right) q.push(node->right);
+       if(right == NULL){
+           q.pop();
+           q.push(NULL);
+       }
+   }
+}

@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/max-sum-subarray-by-removing-at-most-one-element/1/?track=SPC-DP&batchId=154
+
+Solution -
+
+int maxSumSubarray(int A[], int n)
+{
+    //Your code here
+    long long fw[n+1] = {0};
+    long long bw[n+1] = {0};
+    fw[0] = A[0];
+    bw[n-1] = A[n-1];
+    int max_so_far = A[0];
+    for(int i = 1; i < n; i++){
+        fw[i] = max(fw[i-1]+A[i],(long long) A[i]);
+        max_so_far = max((long long) max_so_far, fw[i]);
+    }
+    for(int i = n-2;i >= 0; i--){
+        bw[i] = max(bw[i+1]+A[i],(long long) A[i]);
+    }
+    long long ans =  INT_MIN;
+    for(int i = 1; i < n-1; i++){
+        ans = max(ans, fw[i-1]+bw[i+1]);
+    }
+    return max(ans,(long long) max_so_far);
+    
+}
