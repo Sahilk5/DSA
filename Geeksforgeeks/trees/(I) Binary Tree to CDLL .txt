@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/binary-tree-to-cdll/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+Node* concatenate(Node *ll, Node* rl){
+    if(ll == NULL){
+        return rl;
+    }
+    if(rl == NULL){
+        return ll;
+    }
+    Node* tailLeft = ll->left;
+    Node* tailRight = rl->left;
+    tailLeft->right = rl;
+    tailRight->right = ll;
+    ll->left = tailRight;
+    rl->left = tailLeft;
+    return ll;
+}
+
+Node* bTreeToCList(Node *root)
+{
+//add code here.
+if(root == NULL){
+    return root;
+}
+
+Node *left = bTreeToCList(root->left);
+Node *right = bTreeToCList(root->right);
+
+root->left = root;
+root->right = root;
+
+return concatenate(left, concatenate(root, right));
+
+}

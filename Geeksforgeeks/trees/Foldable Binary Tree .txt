@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/foldable-binary-tree/1/?track=PC-W6-T&batchId=154
+
+Soluton - 
+
+void mirror(Node* root){
+    if(root == NULL)return;
+
+    Node*temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+    
+    mirror(root->left);
+    mirror(root->right);
+}
+
+bool isSame(Node *r1, Node* r2){
+    if(r1 == NULL && r2 == NULL)return true;
+    if(r1 == NULL || r2 == NULL)return false;
+    
+    return isSame(r1->left, r2->left) && (isSame(r1->right, r2->right));
+}
+
+bool IsFoldable(Node* root)
+{
+    if(root == NULL)return true;
+    mirror(root->left);
+    bool flag = isSame(root->left, root->right);
+    //mirror(root->left);
+    return flag;
+    // Your code goes here
+}

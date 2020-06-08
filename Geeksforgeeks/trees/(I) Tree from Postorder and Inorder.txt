@@ -1,0 +1,34 @@
+https://practice.geeksforgeeks.org/problems/tree-from-postorder-and-inorder/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+int postInd = 0;
+Node *buildTreeUtil(int in[], int post[], int n, int l, int r) {
+    // Your code here
+    if(l > r){
+        return NULL;
+    }
+    
+    Node* root = new Node(post[postInd--]);
+    
+    
+    int ind = 0;
+    int data = root->data;
+    for(int i = l; i <= r; i++){
+        if(in[i] == data){
+            ind = i;
+            break;
+        }
+    }
+    
+    root->right = buildTreeUtil(in, post, n, ind+1, r);
+    root->left = buildTreeUtil(in, post, n, l, ind-1);
+    
+    return root;
+}
+
+Node *buildTree(int in[], int post[], int n) {
+    // Your code here
+    postInd = n-1;
+    return buildTreeUtil(in, post, n, 0, n-1);
+}

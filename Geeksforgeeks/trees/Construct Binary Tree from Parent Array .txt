@@ -1,0 +1,38 @@
+https://practice.geeksforgeeks.org/problems/construct-binary-tree-from-parent-array/1/?track=PC-W6-T&batchId=154
+
+
+Solution -
+
+Node *createTreeUtil(int par[], int n, Node* arr[]){
+   int i = 0;
+   Node* parent = NULL;
+   Node* head = NULL;
+   while(i < n){
+       if(par[i] == -1){
+           head = arr[i];
+       }
+       else{
+           parent = arr[par[i]];
+           if(parent->left == NULL){
+               parent->left = arr[i];
+           }
+           else{
+               parent->right = arr[i];
+           }
+       }
+       i++;
+   }
+   return head;
+}
+
+Node *createTree(int parent[], int n)
+{
+    // Your code here
+    Node* nodeArray[n];
+    //memset(nodeArray, NULL, n);
+    for(int i = 0; i < n; i++){
+        nodeArray[i] = new Node(i);
+    }
+    Node* head = createTreeUtil(parent, n, nodeArray);
+    return head;
+} 
