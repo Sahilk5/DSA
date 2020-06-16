@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/check-for-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+
+bool isBSTUtil(Node* root, Node*&prev){
+    
+    if(root == NULL){
+        return true;
+    }
+    
+    if(!isBSTUtil(root->left, prev))
+        return false;
+        
+    
+    
+    if (prev != NULL && root->data <= prev->data) 
+          return false; 
+    prev = root;
+    
+    return isBSTUtil(root->right, prev);
+
+    return true;
+}
+
+bool isBST(Node* root) {
+    // Your code here
+    Node* prev = NULL;
+    return isBSTUtil(root, prev);
+}

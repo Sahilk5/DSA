@@ -1,0 +1,49 @@
+https://practice.geeksforgeeks.org/problems/delete-a-node-from-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+
+Node* getSucc(Node *root){
+    root = root->right;
+    while(root && root->left){
+        root = root->left;
+    }
+    return root;
+}
+
+Node *deleteNode(Node *root,  int X)
+{
+    // your code goes here
+    if(root == NULL){
+        return root;
+    }
+    
+    
+    if(X < root->data){
+        root->left = deleteNode(root->left, X);
+    }
+    else if(X > root->data){
+        root->right = deleteNode(root->right, X);
+    }
+    
+    else{
+        if(root->left == NULL){
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        if(root->right == NULL){
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        
+        else{
+            Node* temp = getSucc(root);
+            root->data = temp->data;
+            root->right = deleteNode(root->right, temp->data);
+        }
+    }
+    
+    return root;
+}

@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/maximum-sum-of-non-adjacent-nodes/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+
+pair<int, int> getMaxSumUtil(Node* root){
+    if(root == NULL){
+        pair<int, int> sum(0, 0); 
+        return sum;
+    }
+    
+    pair<int, int> s1 = getMaxSumUtil(root->left); 
+    pair<int, int> s2 = getMaxSumUtil(root->right); 
+    pair<int, int> sum; 
+    
+    sum.first = s1.second + s2.second + root->data;
+    sum.second = max(s1.first, s1.second) + 
+                 max(s2.first, s2.second); 
+    
+    return sum;
+    
+}
+
+int getMaxSum(Node *root) 
+{
+    // Add your code here
+    pair<int, int> sum;
+    sum = getMaxSumUtil(root);
+    return max(sum.first, sum.second);
+}

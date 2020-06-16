@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+Node* LCA(Node *root, int n1, int n2)
+{
+   //Your code here
+   if(root == NULL)
+    return root;
+    if(n2 < n1){
+        int t = n1;
+        n1 = n2;
+        n2 = t;
+    }
+    if(root->data == n1 || root->data == n2){
+        return root;
+    }
+    if(root->data > n1 && root->data < n2){
+        return root;
+    }
+    if(root->data > n1 && root->data > n2){
+        return LCA(root->left, n1, n2);
+    }else{
+        LCA(root->right, n1, n2);
+    }
+}

@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/implementing-ceil-in-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+int findCeil(Node* root, int key) 
+{ 
+    // Base case 
+    if (root == NULL) 
+        return -1; 
+  
+    // Your code here
+    
+    	int res = 0;
+	while(root){
+	    if(root->data == key){
+	        return key;
+	    }
+	    if(root->data < key){
+	        root = root->right;
+	    }
+	    else{
+	        res = root->data;
+	        root = root->left;
+	    }
+	}
+	if(res == 0)return -1;
+	return res;
+} 

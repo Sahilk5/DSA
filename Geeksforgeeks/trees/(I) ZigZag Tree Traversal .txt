@@ -1,0 +1,42 @@
+https://practice.geeksforgeeks.org/problems/zigzag-tree-traversal/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+vector <int> zigZagTraversal(Node* root)
+{
+	// Code here
+	stack<struct Node*> currentlevel; 
+    stack<struct Node*> nextlevel; 
+    
+    currentlevel.push(root);
+    
+    bool ltr = true;
+    
+    vector<int> res;
+    
+    while(!currentlevel.empty()){
+        Node* temp = currentlevel.top();currentlevel.pop();
+        if(temp){
+            res.push_back(temp->data);
+            
+            if(ltr){
+                if (temp->left) 
+                    nextlevel.push(temp->left); 
+                if (temp->right) 
+                    nextlevel.push(temp->right); 
+            }
+            else{
+                if (temp->right) 
+                    nextlevel.push(temp->right); 
+                if (temp->left) 
+                    nextlevel.push(temp->left); 
+            }
+        }
+        
+        if(currentlevel.empty()){
+            ltr = !ltr;
+            swap(currentlevel, nextlevel);
+        }
+    }
+    return res;
+}

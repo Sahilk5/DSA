@@ -1,0 +1,39 @@
+https://practice.geeksforgeeks.org/problems/serialize-and-deserialize-a-binary-tree/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+
+void serialize(Node *root,vector<int> &A)
+{
+    //Your code here
+    if(root==NULL){
+        A.push_back(-1);
+        return;
+    }
+    A.push_back(root->data);
+    serialize(root->left,A);
+    serialize(root->right,A);
+}
+
+/*this function deserializes
+ the serialized vector A*/
+Node* deSerializeUtil(vector<int> &A, int &ind){
+    
+    if(ind == A.size() || A[ind] == -1){
+        ind++;
+        return NULL;
+    }
+    
+    Node* root = new Node(A[ind]);
+    ind++;
+    root->left = deSerializeUtil(A,ind);
+    root->right = deSerializeUtil(A,ind);
+    return root;
+}
+
+Node *deSerialize(vector<int> &A)
+{
+    int ind = 0;
+    Node* head = deSerializeUtil(A, ind);
+    return head;
+}

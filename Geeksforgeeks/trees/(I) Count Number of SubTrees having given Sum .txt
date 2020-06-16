@@ -1,0 +1,29 @@
+https://practice.geeksforgeeks.org/problems/count-number-of-subtrees-having-given-sum/1/?track=PC-W6-T&batchId=154
+
+Solution -
+int c = 0;
+
+int countSubtreesWithSumXUtil(Node* root, int x){
+    if(root == NULL)
+        return 0;
+    int l = 0;
+    int r =  0;
+    l=countSubtreesWithSumXUtil(root->left,x); 
+      
+    r=countSubtreesWithSumXUtil(root->right,x); 
+  
+    if(l+r+root->data==x) 
+    {c++;} 
+  
+    return l+root->data+r; 
+      
+
+}
+
+int countSubtreesWithSumX(Node* root, int x)
+{
+     c = 0;
+     countSubtreesWithSumXUtil(root, x);
+	// Code here
+    return c;
+}

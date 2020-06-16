@@ -1,0 +1,33 @@
+https://practice.geeksforgeeks.org/problems/print-bst-elements-in-given-range/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+void helper(Node* root, int l, int h, vector<int> &res){
+    if(root == NULL){
+        return;
+    }
+    if(root->data > l){
+        helper(root->left, l, h, res);
+    }
+    
+    if(root->data >= l && root->data <= h){
+        res.push_back(root->data);
+    }
+
+    if(root->data < h){
+        helper(root->right, l, h, res);
+    }
+
+}
+
+vector<int> printNearNodes(Node *root, int low, int high)
+{
+    vector<int> res;
+  // your code goes here   
+    if(root == NULL){
+        return res;
+    }
+    helper(root, low, high, res);
+    //sort(res.begin(), res.end());
+    return res;
+}

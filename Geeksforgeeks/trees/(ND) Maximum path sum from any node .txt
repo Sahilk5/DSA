@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/maximum-path-sum-from-any-node/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+
+int maxSum(Node* root, int &res){
+    if(root == NULL)
+        return 0;
+        
+    int l = maxSum(root->left, res);
+    int r = maxSum(root->right, res);
+    int maxSingle = max(max(l,r)+root->data, root->data);
+    int maxTop = max(maxSingle, l+r+root->data);
+    res = max(maxTop, res);
+    return maxSingle;
+}
+
+int findMaxSum(Node* root)
+{
+    // Your code goes here
+    int res = INT_MIN;
+    maxSum(root, res);
+    return res;
+}

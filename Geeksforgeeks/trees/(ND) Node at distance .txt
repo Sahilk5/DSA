@@ -1,0 +1,32 @@
+https://practice.geeksforgeeks.org/problems/node-at-distance/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+int countK = 0;
+void printKDistantfromLeafUtil(Node* root, int k, int path[], bool vis[], int path_len){
+    if(root == NULL){
+        return;
+    }
+    
+    path[path_len] = root->data;
+    vis[path_len] = false;
+    path_len++;
+    
+    if(root->left == NULL && root->right == NULL && path_len-k-1 >= 0 && vis[path_len-k-1] == false){
+        countK++;vis[path_len-k-1]=true;return;
+    }
+    
+    printKDistantfromLeafUtil(root->left, k, path, vis, path_len);
+    printKDistantfromLeafUtil(root->right, k, path, vis, path_len);
+}
+
+
+int printKDistantfromLeaf(Node* root, int k)
+{
+	//Add your code here.
+	countK = 0;
+	int path[MAX_HEIGHT];
+	bool visited[MAX_HEIGHT];
+	printKDistantfromLeafUtil(root, k, path, visited, 0);
+	return countK;
+}

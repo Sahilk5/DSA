@@ -1,0 +1,23 @@
+https://practice.geeksforgeeks.org/problems/maximum-difference-between-node-and-its-ancestor/1/?track=PC-W6-T&batchId=154
+
+Solution -
+
+int maxDiffUtil(Node* root, int& res){
+    if(root == NULL){
+        return INT_MAX;
+    }
+    int l = maxDiffUtil(root->left, res);
+    int r = maxDiffUtil(root->right, res);
+    
+    int child = min(l, r);
+    res = max(res, root->data-child);
+    return min(child, root->data);
+}
+
+int maxDiff(Node* root)
+{
+    // Your code here
+    int res = INT_MIN;
+    maxDiffUtil(root, res);
+    return res;
+}
