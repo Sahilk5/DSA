@@ -1,0 +1,40 @@
+https://practice.geeksforgeeks.org/problems/preorder-to-postorder/0/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+
+void preToPost(int arr[],int n,int &i, int min,int max){
+    if(i == n){
+        return;
+    }
+    
+    if(arr[i] < min || arr[i] > max)
+        return;
+        
+    int val = arr[i];
+    i++;
+    
+    preToPost(arr, n, i, min, val);
+    preToPost(arr, n, i, val, max);
+    
+    cout<<val<<" ";
+}
+
+int main()
+ {
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    int arr[n];
+	    for(int i = 0; i < n; i++){
+	        cin>>arr[i];
+	    }
+	    int i = 0;
+	    preToPost(arr, n, i, INT_MIN, INT_MAX);
+	    cout<<endl;
+	}
+	return 0;
+}

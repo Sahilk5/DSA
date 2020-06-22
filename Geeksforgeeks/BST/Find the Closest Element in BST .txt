@@ -1,0 +1,33 @@
+https://practice.geeksforgeeks.org/problems/find-the-closest-element-in-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+void minDiffUtil(Node* root, int K, int &md){
+    if(root == NULL){
+        return;
+    }
+    if(root->data == K){
+        md = 0; return;
+    }
+    if(root->data > K){
+        if(abs(root->data-K) < md){
+            md = abs(root->data-K);
+        }
+        minDiffUtil(root->left, K, md);
+    }
+    else{
+        if(abs(root->data-K) < md){
+            md = abs(root->data-K);
+        }
+        minDiffUtil(root->right, K, md);        
+    }
+    return;
+}
+
+int minDiff(Node *root, int K)
+{
+    //Your code here
+   int min_diff = INT_MAX;
+   minDiffUtil(root, K, min_diff);
+   return min_diff;
+}

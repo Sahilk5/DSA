@@ -1,0 +1,56 @@
+https://practice.geeksforgeeks.org/problems/x-total-shapes/0/?track=SPC-Graph&batchId=154
+
+Solution -
+
+Clean it
+
+#include<iostream>
+using namespace std;
+int n, m;
+
+
+void floodFill(char a[][100], char vis[][100], int i, int j, int &c){
+    if(i < 0 || j < 0 || i >= n || j >= m || vis[i][j] != '-' || a[i][j] != 'X'){
+        return;
+    }
+    if(a[i][j] == 'X' && vis[i][j] == '-'){
+        vis[i][j] = '0' + c;
+    }
+    floodFill(a,vis,i+1,j,c);
+    floodFill(a,vis,i-1,j,c);
+    floodFill(a,vis,i,j+1,c);
+    floodFill(a,vis,i,j-1,c);
+}
+
+void solve(char a[][100], char vis[][100], int &c){
+    for(int l = 0; l < n; l++){
+        for(int k = 0; k < m; k++){
+            if(a[l][k] == 'X' && vis[l][k] == '-'){
+                floodFill(a, vis, l, k, c);
+                c++;
+            }
+        }
+    }
+}
+
+int main()
+ {
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    cin>>n>>m;
+	    char a[100][100];
+	    char v[100][100];
+	    for(int i = 0; i < n; i++){
+	        for(int j = 0; j < m; j++){
+	            cin>>a[i][j];
+	            v[i][j] = '-';
+	        }
+	    }
+	    int count = 0;
+	    solve(a, v ,count);
+	    cout<<count<<endl;
+	}
+	return 0;
+}

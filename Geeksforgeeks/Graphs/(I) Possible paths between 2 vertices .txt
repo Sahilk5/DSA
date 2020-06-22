@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/possible-paths-between-2-vertices-1587115620/1/?track=SPC-Graph&batchId=154
+
+Solution -
+
+void countPathsUtil(list<int> g[], int V, int s, int d, int &c){
+    if(s == d){
+        c++;
+        return;
+    }
+    for(auto i = g[s].begin(); i != g[s].end(); i++){
+        countPathsUtil(g, V, *i, d, c);
+    }
+}
+
+int countPaths(list<int> g[], int V, int s, int d) {
+    // Your code here
+    int count = 0;
+    countPathsUtil(g, V, s, d, count);
+    return count;
+}

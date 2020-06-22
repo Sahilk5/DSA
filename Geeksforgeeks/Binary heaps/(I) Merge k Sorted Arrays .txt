@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1/?track=SPC-Heap&batchId=154
+
+Solution -
+
+
+typedef pair<int, pair<int, int>> ppi;
+
+int *mergeKArrays(int arr[][N], int k)
+{
+//code here
+    priority_queue<ppi, vector<ppi>, greater<ppi> > pq; 
+    
+    for (int i = 0; i < k; i++) 
+        pq.push({ arr[i][0], { i, 0 } }); 
+    
+    int *res = new int[k*k];
+    int ind = 0;
+    while (pq.empty() == false) { 
+        ppi curr = pq.top(); 
+        pq.pop(); 
+    
+        int i = curr.second.first;   
+        int j = curr.second.second;     
+        res[ind++] = curr.first;
+        //cout<<curr.first<<" ";
+        if(j+1 < k){
+            pq.push({arr[i][j+1], {i, j+1}});
+        }
+    }
+    return res;
+}

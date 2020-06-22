@@ -1,0 +1,43 @@
+https://practice.geeksforgeeks.org/problems/convert-level-order-traversal-to-bst/1/?track=PC-W6-BST&batchId=154
+
+Solution -
+
+struct NodeDetails{
+  Node* ptr;
+  int min, max;
+};
+
+Node* constructBst(int arr[], int n)
+{
+    if(n == 0){
+        return NULL;
+    }
+    
+    queue<NodeDetails> q;
+    int i = 0;
+    NodeDetails newNode;
+    newNode.ptr = new Node(arr[i++]);
+    newNode.min = INT_MIN;
+    newNode.max = INT_MAX;
+    q.push(newNode);
+    
+    Node* root = newNode.ptr;
+    while(i != n){
+        NodeDetails temp = q.front();q.pop();
+        if(i < n && temp.ptr->data > arr[i] && arr[i] > temp.min){
+                newNode.ptr = new Node(arr[i++]);
+                newNode.min = temp.min;
+                newNode.max = temp.ptr->data;
+                q.push(newNode);
+                temp.ptr->left = newNode.ptr;
+        }
+        if(i < n && temp.ptr->data < arr[i] && arr[i] < temp.max){
+                newNode.ptr = new Node(arr[i++]);
+                newNode.min = temp.ptr->data;
+                newNode.max = temp.max;
+                q.push(newNode);
+                temp.ptr->right = newNode.ptr;
+        }
+    }
+    return root;
+}
