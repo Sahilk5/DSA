@@ -1,0 +1,17 @@
+https://practice.geeksforgeeks.org/problems/delete-middle-element-of-a-stack/1/?track=SPC-Stack&batchId=154
+
+Solution -
+
+stack<int> deleteMid(stack<int>st,int sizeOfStack,int current)
+{
+    //Your code here
+    if(!st.empty()){
+        int val = st.top();st.pop();
+        st = deleteMid(st, sizeOfStack, ++current);
+        if(current != floor(sizeOfStack/2 + 1)){
+            st.push(val);
+        }
+    }
+    return st;
+}
+

@@ -1,0 +1,62 @@
+https://practice.geeksforgeeks.org/problems/reverse-first-k-elements-of-queue/1/?track=SPC-Queue&batchId=154
+
+Solution -
+
+queue<ll> modifyQueue(queue<ll> Queue, int k)
+{
+    //add code here.
+    if (Queue.empty() == true
+        || k > Queue.size()) 
+        return Queue; 
+    if (k <= 0) 
+        return Queue; 
+  
+    stack<int> Stack; 
+  
+    /* Push the first K elements  
+       into a Stack*/
+    for (int i = 0; i < k; i++) { 
+        Stack.push(Queue.front()); 
+        Queue.pop(); 
+    } 
+  
+    /* Enqueue the contents of stack 
+       at the back of the queue*/
+    while (!Stack.empty()) { 
+        Queue.push(Stack.top()); 
+        Stack.pop(); 
+    } 
+  
+    /* Remove the remaining elements and  
+       enqueue them at the end of the Queue*/
+    for (int i = 0; i < Queue.size() - k; i++) { 
+        Queue.push(Queue.front()); 
+        Queue.pop(); 
+    }
+    return Queue;
+}
+
+Solution 2 - 
+
+Work on recursive solution .
+
+queue<ll> modifyQueue(queue<ll> q, int k)
+{
+    //add code here.
+    if(!q.empty()){
+        if(k>0){
+        ll val = q.front();
+        q = modifyQueue(q, k--);
+        q.push(val);
+        }
+        else{
+            ll n = q.size();
+            while(n--){
+            ll val = q.front();q.pop();
+            q.push(val);
+                
+            }
+        }
+    }
+    return q;
+}

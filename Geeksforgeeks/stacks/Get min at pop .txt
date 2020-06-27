@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/get-min-at-pop/1/?track=SPC-Stack&batchId=154
+
+Solution -
+
+
+stack<int>_push(int arr[],int n)
+{
+   // your code here
+   stack<int> st;
+   st.push(arr[0]);
+   for(int i = 1; i < n; i++){
+       if(st.top() > arr[i]){
+           st.push(arr[i]);
+       }
+       else{
+           st.push(st.top());
+       }
+   }
+   return st;
+}
+
+/* print minimum element of the stack each time
+   after popping
+*/
+void _getMinAtPop(stack<int>s)
+{
+    // your code here
+    while(!s.empty()){
+    cout<<s.top()<<" ";
+    s.pop();}
+}

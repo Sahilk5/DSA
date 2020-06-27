@@ -1,0 +1,57 @@
+https://practice.geeksforgeeks.org/problems/parenthesis-checker2744/1/?track=SPC-Stack&batchId=154
+
+Solution -
+bool ispar(string x)
+{
+    // Your code here
+    
+    stack<char> st;
+
+    int i = 0;
+    
+    for(i = 0; i < x.length(); i++){
+        if (x[i]=='('||x[i]=='['||x[i]=='{') 
+        { 
+            st.push(x[i]); 
+            continue; 
+        } 
+        
+        if(st.empty()){
+            return false;
+        }
+  
+        switch(x[i]){
+
+            case ')':
+                if(st.top() != '('){
+                    return false;
+                }
+                else{
+                    st.pop();
+                    break;
+                }
+            case '}':
+                if(st.top() != '{'){
+                    return false;
+                }
+                else{
+                    st.pop();
+                    break;
+                }
+            case ']':
+                if(st.top() != '['){
+                    return false;
+                }
+                else{
+                    st.pop();
+                    break;
+                }
+        }
+    }
+    
+    if(!st.empty())
+        return false;
+    
+    return true;
+    
+}
